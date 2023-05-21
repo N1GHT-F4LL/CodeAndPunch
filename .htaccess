@@ -1,0 +1,60 @@
+# Disable directory browsing
+
+Options -Indexes
+
+# Prevent access to .htaccess and .htpasswd files
+
+<FilesMatch "^\.htaccess">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+# Prevent access to PHP configuration files
+
+<FilesMatch "^(php\.ini|php\.cgi|\.user\.ini)">
+Order Deny,Allow
+Deny from all
+</FilesMatch>
+
+# Protect sensitive files
+
+<FilesMatch "^(config\.php|database\.db)$">
+Order Deny,Allow
+Deny from all
+</FilesMatch>
+
+# Block access to specific file extensions
+
+<FilesMatch "\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist|old|mdb|json|pl)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+# Disable server signature
+
+ServerSignature Off
+
+# Set the default index file
+
+DirectoryIndex index.php
+
+# Enable rewriting
+
+RewriteEngine On
+
+# Rewrite URLs to the front controller (index.php)
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ index.php/$1 [L,QSA]
+
+# Block access to parent directories
+
+RewriteCond %{REQUEST_URI} "/\.\."
+RewriteRule ^(.*)$ - [R=404,L]
+
+# HTTP message
+
+ErrorDocument 301 /hi-there.html
+ErrorDocument 403 /hi-there.html
+ErrorDocument 404 /hi-there.html
