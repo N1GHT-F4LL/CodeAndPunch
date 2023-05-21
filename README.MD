@@ -1,6 +1,6 @@
-# README.md
+# Code And Punch
 
-Team 1- Code And Punch - EHC
+Team 1 - EHC - FPT University
 
 ## Demo
 
