@@ -16,12 +16,15 @@
          return $url;
       }
       public function handleURL(){
-         // echo '<pre>';
-         // print_r($_GET);
-         // echo '</pre>';
+         // URL split
          $url = $this->getURL();
          $urlArr = array_filter(explode('/',$url));
          $urlArr = array_values($urlArr);
+         echo '<pre>';
+         print_r($urlArr);
+         echo '</pre>';
+
+         // Controller process
          if (!empty($urlArr[0])){
             $this->__controller = $urlArr[0];
             if(file_exists('app/controllers/'.($this->__controller).'.php')){
@@ -32,6 +35,9 @@
                require_once 'hi-there.html';
             }
          }
+
+         // Action process
+         
       }
    }
 ?>
