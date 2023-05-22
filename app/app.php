@@ -20,9 +20,6 @@
          $url = $this->getURL();
          $urlArr = array_filter(explode('/',$url));
          $urlArr = array_values($urlArr);
-         echo '<pre>';
-         print_r($urlArr);
-         echo '</pre>';
 
          // Controller process
          if (!empty($urlArr[0])){
@@ -31,13 +28,32 @@
                require_once 'controllers/'.($this->__controller).'.php';
                #echo $this->__controller;
                $this->__controller = new $this->__controller();
+               unset($urlArr[0]);
             }else{
                require_once 'hi-there.html';
             }
          }
 
          // Action process
-         
+         if (!empty($urlArr[1])){
+            $this->__action = $urlArr[1];
+            unset($urlArr[1]);
+         }else{
+
+         }
+
+         // Params process
+         if (!empty($urlArr[2])){
+            $this->__params = array_values($urlArr);
+            call_user_func_array($this->__controller,$this->__action,$this->__params);
+         }else{
+
+         }
+
+         // Print for debug
+         echo '<pre>';
+         print_r($this->__params);
+         echo '</pre>';
       }
    }
 ?>
