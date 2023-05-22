@@ -26,6 +26,7 @@
             $this->__controller = $urlArr[0];
             if(file_exists('app/controllers/'.($this->__controller).'.php')){
                require_once 'app/controllers/'.($this->__controller).'.php';
+               #echo $this->__controller;
                $this->__controller = new $this->__controller();
             }else{
                require_once 'hi-there.html';
